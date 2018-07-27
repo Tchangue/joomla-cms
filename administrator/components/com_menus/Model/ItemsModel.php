@@ -55,6 +55,7 @@ class ItemsModel extends ListModel
 				'client_id', 'a.client_id',
 				'home', 'a.home',
 				'parent_id', 'a.parent_id',
+				'component_id', 'a.component_id',
 				'a.ordering'
 			);
 
@@ -110,6 +111,11 @@ class ItemsModel extends ListModel
 
 		$parentId = $this->getUserStateFromRequest($this->context . '.filter.parent_id', 'filter_parent_id');
 		$this->setState('filter.parent_id', $parentId);
+
+
+		$componentId = $this->getUserStateFromRequest($this->context . '.filter.component_id', 'filter_component_id');
+		$this->setState('filter.component_id', $componentId);
+
 
 		$level = $this->getUserStateFromRequest($this->context . '.filter.level', 'filter_level');
 		$this->setState('filter.level', $level);
@@ -400,6 +406,20 @@ class ItemsModel extends ListModel
 			$query->where('a.parent_id = ' . (int) $parentId);
 		}
 
+		// Filter the items over the component id if set.
+		$componentId = $this->getState('filter.component_id');
+		$mt = $this->getState('filter.menutype');
+        // Translate component name
+        //$item->title = Text::_($item->title);
+
+
+
+        if (!empty($componentId))
+        {
+            $query->where('a.component_id = ' . (int) $componentId );
+        }
+
+
 		// Filter the items over the menu id if set.
 		$menuType = $this->getState('filter.menutype');
 
@@ -443,6 +463,7 @@ class ItemsModel extends ListModel
 		{
 			$query->where('1 != 1');
 		}
+
 
 		// Filter on the access level.
 		if ($access = $this->getState('filter.access'))
