@@ -190,6 +190,18 @@ if ($menuType == '')
 									<?php if ($item->checked_out) : ?>
 										<?php echo HTMLHelper::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'items.', $canCheckin); ?>
 									<?php endif; ?>
+                                    /*Breadcrumd relocated here
+                                    */
+                                    <?php
+                                    $parent_item_id = $item->parent_id;
+                                    $allparent = "";
+                                    while (!empty($parent_item_id) && $parent_item_id>1){
+                                        $parent_item = $this->getModel()->searchParentItem($parent_item_id);
+                                          $allparent = $parent_item->title . "/".$allparent;
+                                          $parent_item_id =  $parent_item->parent_id;
+                                    }
+                                    echo $allparent;
+                                    ?>
 									<?php if ($canEdit && !$item->protected) : ?>
 										<?php $editIcon = $item->checked_out ? '' : '<span class="fa fa-pencil-square mr-2" aria-hidden="true"></span>'; ?>
 										<a class="hasTooltip"
