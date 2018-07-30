@@ -611,7 +611,7 @@ class ItemsModel extends ListModel
 	}
     /*
      * Search the parent item id to select the parent item name
-     * Breadcum
+     * Breadcrumb
      * */
     public function searchParentItem($value) {
         $db    = Factory::getDbo();

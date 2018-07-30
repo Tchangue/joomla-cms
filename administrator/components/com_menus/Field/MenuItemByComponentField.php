@@ -238,6 +238,8 @@ class MenuItemByComponentField extends GroupedlistField
 			// Build the options array.
 			foreach ($items as $key => $link)
 			{
+                $lang->load("$extension.sys", JPATH_ADMINISTRATOR, null, false, true)
+                || $lang->load("$extension.sys", JPATH_ADMINISTRATOR . '/components/' . $extension, null, false, true);
 				// Unset if item is menu_item_root
 				if ($link->text === 'Menu_Item_Root')
 				{
