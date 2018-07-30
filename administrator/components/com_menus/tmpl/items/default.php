@@ -192,6 +192,8 @@ if ($menuType == '')
 									<?php endif; ?>
 
                                     <?php
+                                    /*Breadcrumd relocated here
+                                   */
                                     $parent_item_id = $item->parent_id;
                                     $allparent = "";
                                     while (!empty($parent_item_id) && $parent_item_id>1){
