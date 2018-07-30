@@ -609,4 +609,21 @@ class ItemsModel extends ListModel
 
 		return $this->cache[$store];
 	}
+    /*
+     * Search the parent item id to select the parent item name
+     * Breadcum
+     * */
+    public function searchParentItem($value) {
+        $db    = Factory::getDbo();
+        $query = $db->getQuery(true);
+        $query->select("*")->from("#__menu")->where("id = " . $value );
+        $result = $db->setQuery($query)->loadObject();
+        if(empty($result)){
+            return null;
+        }else{
+
+            return $result;
+        }
+
+    }
 }
