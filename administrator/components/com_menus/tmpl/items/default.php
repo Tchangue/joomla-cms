@@ -190,9 +190,10 @@ if ($menuType == '')
 									<?php if ($item->checked_out) : ?>
 										<?php echo HTMLHelper::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'items.', $canCheckin); ?>
 									<?php endif; ?>
-                                    /*Breadcrumd relocated here
-                                    */
+
                                     <?php
+                                    /*Breadcrumd relocated here
+                                   */
                                     $parent_item_id = $item->parent_id;
                                     $allparent = "";
                                     while (!empty($parent_item_id) && $parent_item_id>1){
