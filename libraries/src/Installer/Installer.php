@@ -878,6 +878,9 @@ class Installer extends \JAdapter
 		// Get the database connector object
 		$db = & $this->_db;
 
+		// Begin a transaction
+		$db->transactionStart();
+
 		if (!$element || !count($element->children()))
 		{
 			// Either the tag does not exist or has no children therefore we return zero files processed.
@@ -898,9 +901,8 @@ class Installer extends \JAdapter
 		$isUtf8mb4Db = $db instanceof UTF8MB4SupportInterface;
 
 		// Process each query in the $queries array (children of $tagName).
-		foreach ($queries as $query)
-		{
-			try
+		try{
+			foreach ($queries as $query)
 			{
 				if ($isUtf8mb4Db)
 				{
@@ -908,16 +910,18 @@ class Installer extends \JAdapter
 				}
 
 				$db->setQuery($query)->execute();
+				$update_count++;
 			}
-			catch (\JDatabaseExceptionExecuting $e)
-			{
-				\JLog::add(\JText::sprintf('JLIB_INSTALLER_ERROR_SQL_ERROR', $e->getMessage()), \JLog::WARNING, 'jerror');
+			//Commit the transaction
+			$db->transactionCommit();
+		}catch (\JDatabaseExceptionExecuting $e){
+			// Rollback the transaction when any error occurs
+			$db->transactionRollback();
+			\JLog::add(\JText::sprintf('JLIB_INSTALLER_ERROR_SQL_ERROR', $e->getMessage()), \JLog::WARNING, 'jerror');
 
-				return false;
-			}
-
-			$update_count++;
+			return false;
 		}
+
 
 		return $update_count;
 	}

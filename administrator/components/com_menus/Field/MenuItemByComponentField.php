@@ -251,18 +251,7 @@ class MenuItemByComponentField extends GroupedlistField
 
                 $levelPrefix = str_repeat('- ', max(0, $link->level - 1));
 
-                // Displays language code if not set to All
-                /**if ($link->language !== '*')
-                {
-                $lang = ' (' . $link->language . ')';
-                }
-                else
-                {
-                $lang = '';
-                }*/
 
-                //Update component name
-                //$link->componentname = ucfirst(explode("_",$link->componentname)[1]);
                 $link->componentname = Text::_($link->componentname);
                 $link->component_id = $link->component_id.":".$link->menutype;
 
@@ -292,18 +281,6 @@ class MenuItemByComponentField extends GroupedlistField
 
                     $levelPrefix = str_repeat('- ', $link->level - 1);
 
-                    // Displays language code if not set to All
-                    /**if ($link->language !== '*')
-                    {
-                    $lang = ' (' . $link->language . ')';
-                    }
-                    else
-                    {
-                    $lang = '';
-                    }*/
-
-                    //Update component name
-                    //$link->componentname = ucfirst(explode("_",$link->componentname)[1]);
                     $link->componentname = Text::_($link->componentname);
                     $link->component_id = $link->component_id.":".$link->menutype;
 
